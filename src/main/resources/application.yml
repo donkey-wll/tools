@@ -1,0 +1,5 @@
+spring:
+  profiles:
+#    active: ${ACTIVE_PRO}
+    active: dev
+#    active: test
