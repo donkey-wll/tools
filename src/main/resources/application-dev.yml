@@ -1,0 +1,217 @@
+# Tomcat
+server:
+  tomcat:
+    max-threads: 10
+    min-spare-threads: 10
+  port: 12100
+
+spring:
+  application:
+    name: b07-01
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    #    driverClassName: oracle.jdbc.OracleDriver
+    #    url: jdbc:p6spy:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=172.18.215.9)(PORT=1521))(ADDRESS=(PROTOCOL=TCP)(HOST=172.18.215.9)(PORT=1521))(LOAD_BALANCE=yes)(FAILOVER=on))(CONNECT_DATA=(SERVICE_NAME=orcl_db)))
+    driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+    url: jdbc:p6spy:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST=172.18.215.11)(PORT=1521))(ADDRESS=(PROTOCOL=TCP)(HOST=172.18.215.11)(PORT=1521))(LOAD_BALANCE=yes)(FAILOVER=on))(CONNECT_DATA=(SERVICE_NAME=orcl_db)))
+    username: ZWFWPT_ZBBA
+    password: ZWFWPT_ZBBA
+  #    username: SHENGYANG_TEST_BG
+  #    password: SHENGYANG_TEST_BG
+  #    url: jdbc:oracle:thin:@192.168.20.216:1521:orcl
+  #    username: LOCL_TEST
+  #    password: LOCL_TEST
+  redis:
+    open: false  # 是否开启redis缓存  true开启   false关闭
+    database: 0
+    host: 172.18.215.12
+    port: 6379
+    password: test   # 密码（默认为空）
+    #        timeout: 6000ms  # 连接超时时长（毫秒）
+    jedis:
+      pool:
+        max-active: 1000  # 连接池最大连接数（使用负值表示没有限制）
+        max-wait: -1ms      # 连接池最大阻塞等待时间（使用负值表示没有限制）
+        max-idle: 10      # 连接池中的最大空闲连接
+        min-idle: 5       # 连接池中的最小空闲连接
+  jackson:
+    time-zone: GMT+8
+
+logging:
+  level:
+    com.stargis: debug
+
+# Mybatis Plust增强版-配置
+mybatis-plus:
+  mapper-locations: classpath*:mapper/**/*.xml
+  #实体扫描，多个package用逗号或者分号分隔
+  typeAliasesPackage: com.stargis.zbba.entity,com.stargis.zbba.base.entity
+  global-config:
+    #主键类型  0:"数据库ID自增", 1:"用户输入ID",2:"全局唯一ID (数字类型唯一ID)", 3:"全局唯一ID UUID";
+    id-type: 3
+    #字段策略 0:"忽略判断",1:"非 NULL 判断"),2:"非空判断"
+    field-strategy: 1
+    #驼峰下划线转换
+    db-column-underline: true
+    #刷新mapper 调试神器
+    refresh-mapper: true
+    #数据库大写下划线转换
+    #capital-mode: true
+    #序列接口实现类配置
+    #key-generator: com.baomidou.springboot.xxx
+    #逻辑删除配置
+    logic-delete-value: -1
+    logic-not-delete-value: 0
+    #自定义填充策略接口实现
+    #meta-object-handler: com.baomidou.springboot.xxx
+    #自定义SQL注入器
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+    call-setters-on-nulls: true
+    #配置JdbcTypeForNull, oracle数据库必须配置
+    jdbc-type-for-null: 'null'
+
+
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://SuperAdmin:SuperAdmin@172.18.216.31:32289/eureka/
+    register-with-eureka: true
+    fetch-registry: true
+  instance:
+    instance-id: 172.18.216.27:${server.port}
+    hostname: 172.18.216.27
+    #instance.id: ${spring.application.instance_id:${random.val}}
+    prefer-ip-address: true
+    ip-address: 172.18.216.27
+
+  log:
+    logstash:
+    address: 172.18.216.27:32104
+
+feign:
+  hystrix:
+    enabled: false
+comtop:
+  flow:
+    transActorId: 6cd208d779454e679f35a061d2b1e1e7
+    flowId_sl: ranqi_sl_b1410
+    flowId_bg: ranqi_bg_b1410
+    flowId_zx: ranqi_zx_b1410
+    flowId_xy: ranqi_xy_b1410
+    flowId_zxz: ranqi_zxz_b1410
+    jiejianNode_sl: Task_2
+    jiejianNode_bg: Task_2
+    jiejianNode_zx: Task_2
+    jiejianNode_xy: Task_2
+    jiejianNode_zxz: Task_2
+    jiejianNode_ba: Task_2
+    jiejianNode_gd: Task_2
+    jiejianNode_qyzz: Task_2
+    jiejianNode_kcqyzz: Task_2
+    dthcNode_dthc: Task_10
+    cnzjiejianNode_kcqyzz: Task_2
+    flowId_kcqyzz_sq: kcqyzz_sq_b0202
+    flowId_kcqyzz_yx: kcqyzz_yx_b0202
+    flowId_kcqyzz_zengxiang: kcqyzz_zengxiang_b0202
+    flowId_kcqyzz_hd: kcqyzz_hd_b0202
+    flowId_kcqyzz_sj: kcqyzz_sj_b0202
+    flowId_kcqyzz_bg: kcqyzz_bg_b0202
+    flowId_kcqyzz_zx: kcqyzz_zx_b0202
+    flowId_kcqyzz_dthc: kcqyzz_dthc_b0202
+    flowId_kcqyzz_cnzsq: kcqyzz_cnzsq_b0202
+    flowId_kcqyzz_cnzyx: kcqyzz_cnzyx_b0202
+    flowId_kcqyzz_cnzzengxiang: kcqyzz_cnzzengxiang_b0202
+    flowId_kcqyzz_cnzhd: kcqyzz_cnzhd_b0202
+    flowId_kcqyzz_cnzsj: kcqyzz_cnzsj_b0202
+    flowId_kcqyzz_clsq: kcqyzz_clsq_b0202
+    flowId_kcqyzz_clyx: kcqyzz_clyx_b0202
+    flowId_kcqyzz_clzengxiang: kcqyzz_clzengxiang_b0202
+    flowId_kcqyzz_clhd: kcqyzz_clhd_b0202
+    flowId_kcqyzz_clsj: kcqyzz_clsj_b0202
+
+ribbon:
+  ReadTimeout: 60000
+  ConnectTimeout: 60000
+  eureka:
+    enable: true
+
+tm:
+  manager:
+    url: http://127.0.0.1:7000/tx/manager/
+
+msg:
+  address:
+    url: http://172.18.215.13:8086/
+
+qyryServer:
+  address:
+    url: http://172.18.215.13:8083/
+
+authServer:
+  address:
+    url: http://172.18.215.13:9798/
+
+personnel:
+  address:
+    url: http://172.18.216.27:31203/epr/
+
+#文件服务器地址
+fileServer:
+  address:
+    url: http://172.18.216.31:31202/file/upload
+
+taskServer:
+  createBussTask:
+    url: http://172.18.216.27:31100/sys/schedule/createBussTask
+
+bussService:
+  serviceIp: 172.18.216.27
+  servicePort: 32702
+  serviceUrl:
+    autoCommitFlow: /kcqyzz/manager/autoCommitFlow
+
+projectCode:
+  jyptbsdm: E1200000154
+
+
+#webService服务地址
+webservices:
+  #公告地址
+  zbggService: http://172.18.200.13:8081/epr_zbgg_2/Service.asmx?WSDL
+  #公示地址
+  zbgsService: http://172.18.200.13:8081/epr_zbgs/ServiceZbgs.asmx?WSDL
+  #报名信息
+  #正式地址
+  bmxxService: http://172.18.200.13:8081/enroll/F01_BmxxService/BmxxService.asmx?WSDL
+  #测试地址
+  #  bmxxService: http://172.18.200.13:10010/F01_WebS_2019/BmxxService.asmx?WSDL
+  #开评标相关
+  kpbDataService: http://172.18.200.13:8070/EBP_F03/KPBDataservice.asmx?WSDL
+  #联审平台
+  iInverstProjectService: http://172.18.200.13:30011/IInvestProjectService?WSDL
+  #公共资源2.0
+  #正式地址
+  #  exchangeSrevice: http://172.18.200.14:18080/exchange-service?WSDL
+  #测试地址
+  exchangeSrevice: http://172.18.200.13:18080/exchange-service?WSDL
+  #公共资源2.0 项目信息
+  #正式地址
+  #  projectUniformCodeService: http://172.18.200.13:23080/project-uniform-code-service?wsdl
+  #测试地址
+  projectUniformCodeService: http://172.18.200.13:19080/project-uniform-code-service?WSDL
+
+  #暂时不需要的webService地址
+  #屏幕标室
+  biddingRoomService: http://172.18.200.13:30011/BiddingRoomService/Service.asmx?WSDL
+  #标室(地址有问题服务器curl和telnet不通)
+  exportAndRoomService: http://172.18.200.13:30011/Expert/Room/Service.asmx?WSDL
+  #zbs相关
+  zbwjxxService: http://172.18.200.13:30011/F02_ZbwjxxService/F02_ZbwjxxService.asmx?WSDL
+  #zbs解析及zbs转pdf
+  zbsxxService: http://172.18.200.14:8080/tjjw_eprZBS1/Service.asmx?wsdl
+#  zbsxxService: http://172.18.200.14:8080/tjjw_eprZBS/Service.asmx?wsdl
+
+
